@@ -1,2 +1,1 @@
-openai==1.23.2
 chainlit==1.0.504

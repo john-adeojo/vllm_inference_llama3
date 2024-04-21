@@ -3,9 +3,10 @@ import chainlit as cl
 import httpx
 import json
 
-model = "meta-llama/Meta-Llama-3-8B-Instruct"
-base_url = "https://jbwo0jie86w43e-8000.proxy.runpod.net/"
+model = "meta-llama/Meta-Llama-3-8B-Instruct" # This must be the full uhgging face path and must match your model in your deployment.
+base_url = "https://3fkhcnr70a8mj4-8000.proxy.runpod.net/"
 conversation_history = []
+
 
 def format_conversation_history(history):
     # Convert the list of tuples to a string and remove square brackets
@@ -32,6 +33,7 @@ def build_sys_prompt(system_prompt_base, conversation_history):
     prompt = system_prompt_base + formatted_history
     return prompt
 
+
 async def generate_completion(system_prompt, user_prompt, model):
     url = base_url + "v1/chat/completions"  # Make sure this endpoint is correct
     headers = {"Content-Type": "application/json"}
@@ -42,7 +44,6 @@ async def generate_completion(system_prompt, user_prompt, model):
             {"role": "user", "content": user_prompt}
         ],
         "temperature": 0.6,
-        "max_tokens": 100,
         "stop": "<|eot_id|>"
     }
     timeout = httpx.Timeout(30.0)
